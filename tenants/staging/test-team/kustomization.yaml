@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../base/test-team
+  - ../../base/test-team
 patchesStrategicMerge:
   - test-team-patch.yaml
