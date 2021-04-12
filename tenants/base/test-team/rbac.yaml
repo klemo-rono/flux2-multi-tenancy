@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: test-team
+  name: test
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: test-team
+  name: test-team
+  namespace: test
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: test-team
+  name: test-team-reconciler
+  namespace: test
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: gotk:test:reconciler
+- kind: ServiceAccount
+  name: test-team
+  namespace: test
+
